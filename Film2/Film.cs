@@ -11,10 +11,10 @@ namespace Film2
         private int helyezes;
         private string cim;
         private int ev;
-        private string hossz;
+        private int hossz;
         private List<string> mufaj;
 
-        public Film(int helyezes, string cim, int ev, string hossz, List<string> mufaj)
+        public Film(int helyezes, string cim, int ev, int hossz, List<string> mufaj)
         {
             this.helyezes = helyezes;
             this.cim = cim;
@@ -26,24 +26,22 @@ namespace Film2
         public Film(string sor)
         {
             string[] adatok = sor.Split(';');
-            string sorszam = int.Parse(adatok[0].Substring(0, adatok[0].Length-1));
-            string cim = adatok[1];
-            int ev = int.Parse(adatok[2]);
-            string hosszusag = adatok[3];
-            string[] m = adatok[4].Split(',');
-            List<string> mufajok = new List<string>();
+            this.helyezes = int.Parse(adatok[0].Substring(0, adatok[0].Length-1));
+            this.cim = adatok[1];
+            this.ev = int.Parse(adatok[2]);
+            this.hossz = int.Parse(adatok[3].Split(' ')[0]);
+            this.mufaj = new List<string>();
+            string[] m = adatok[4].Split(", ");
             foreach (var s in m)
             {
-                mufajok.Add(s.Trim());
+                this.mufaj.Add(s.Trim());
             }
-            Film f = new Film(sorszam, cim, ev, hosszusag, mufajok);
-            filmek.Add(f);
         }
 
         public int Helyezes { get => helyezes; set => helyezes = value; }
         public string Cim { get => cim; set => cim = value; }
         public int Ev { get => ev; set => ev = value; }
-        public string Hossz { get => hossz; set => hossz = value; }
+        public int Hossz { get => hossz; set => hossz = value; }
         public List<string> Mufaj { get => mufaj; set => mufaj = value; }
     }
 }
